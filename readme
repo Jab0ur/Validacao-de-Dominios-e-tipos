@@ -1,0 +1,70 @@
+# Validação de DNS em Python
+
+Este projeto contém dois scripts Python para validação de registros DNS de domínios. Cada versão possui um foco diferente:
+
+---
+
+## 🐍 Python 1.0 – Validação automática dos principais tipos DNS
+
+### 📂 Arquivo de entrada:
+- Nome esperado: `subdominios.txt`
+- Formato: lista simples de domínios/subdomínios, um por linha:
+  ```
+  example.com
+  mail.example.com
+  api.example.dev
+  ```
+
+### 🔍 O que ele faz:
+- Para **cada domínio**, testa automaticamente os **4 tipos principais de DNS**:
+  - `A`
+  - `NS`
+  - `CNAME`
+  - `MX`
+- Se encontrar registros do tipo A, ele tenta descobrir o IP e opcionalmente testa se as portas 80 e 443 estão abertas.
+- Gera um relatório em **Excel** salvo em:  
+  `C:\Temp\resultado_validacao_dns_http.xlsx`
+
+---
+
+## 🐍 Python 2.0 – Validação específica por tipo
+
+### 📂 Arquivo de entrada:
+- Nome esperado: `dns_domain_type_pairs.txt`
+- Formato: lista de pares `domínio,tipo`, um por linha:
+  ```
+  example.com,A
+  example.com,MX
+  mail.example.com,CNAME
+  _acme-challenge.example.com,TXT
+  _subdomain.example.com,TXT
+  smtp.example.org,A
+  webmail.example.org,CNAME
+  example.net,NS
+  test.example.net,TXT
+  api.example.dev,A
+  ```
+
+### 🔍 O que ele faz:
+- Para **cada linha**, consulta **apenas o tipo DNS especificado**.
+- Se o tipo for `A`, ele registra o IP encontrado.
+- Portas 80 e 443 **não são testadas** nesta versão.
+- Gera um relatório detalhado em **Excel** salvo em:  
+  `C:\Temp\resultado_dns_ports.xlsx`
+
+---
+
+## ✅ Requisitos
+
+- Python 3.x
+- Bibliotecas:
+  - `pandas`
+  - `tqdm`
+  - `dnspython`
+  - `openpyxl` (para salvar em Excel)
+  - `urllib3` (para o script 1.0)
+
+Instale com:
+```bash
+pip install requirements.txt
+```

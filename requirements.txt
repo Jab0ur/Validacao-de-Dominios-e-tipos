@@ -1,0 +1,5 @@
+pandas
+dnspython
+tqdm
+openpyxl
+urllib3
